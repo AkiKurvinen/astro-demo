@@ -3,6 +3,6 @@ import Greeting from '../components/Greeting';
 import BaseLayout from '../layouts/BaseLayout.astro';
 const pageTitle = "Home Page";
 ---
-<BaseLayout pageTitle={pageTitle}>
+<BaseLayout pageTitle={pageTitle} basePath={import.meta.env.BASE_PATH || '/'}>
   <h2>My awesome blog subtitle</h2>
   <Greeting client:load messages={["Hej", "Hallo", "Hola", "Habari"]} /></BaseLayout>

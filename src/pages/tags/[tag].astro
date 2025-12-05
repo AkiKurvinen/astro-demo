@@ -22,9 +22,14 @@ const { tag } = Astro.params;
 const { posts } = Astro.props;
 ---
 
-<BaseLayout pageTitle={tag}>
+<BaseLayout pageTitle={tag} basePath={import.meta.env.BASE_PATH || '/'}>
   <p>Posts tagged with {tag}</p>
   <ul>
-    { posts.map((post) => <BlogPost url={`/astro-demo/posts/${post.id}/`} title={post.data.title} />) }
+    { posts.map((post) => {
+      let basePath = import.meta.env.BASE_PATH || '/';
+      if (basePath === '/' || basePath === '') basePath = '';
+      if (basePath && !basePath.startsWith('/')) basePath = '/' + basePath;
+      return <BlogPost url={`${basePath}/posts/${post.id}/`} title={post.data.title} />;
+    }) }
   </ul>
 </BaseLayout>

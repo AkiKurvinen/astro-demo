@@ -1,8 +1,10 @@
 ---
+const { basePath = '/' } = Astro.props;
+const prefix = basePath === '/' ? '' : basePath;
 ---
 <div class="nav-links">
-    <a href="/astro-demo/">Home</a>
-    <a href="/astro-demo/about/">About</a>
-    <a href="/astro-demo/blog/">Blog</a>
-    <a href="/astro-demo/tags/">Tags</a>
+    <a href={`${prefix}/`}>Home</a>
+    <a href={`${prefix}/about/`}>About</a>
+    <a href={`${prefix}/blog/`}>Blog</a>
+    <a href={`${prefix}/tags/`}>Tags</a>
 </div>

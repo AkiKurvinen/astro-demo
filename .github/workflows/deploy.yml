@@ -20,6 +20,10 @@ jobs:
     steps:
       - name: Checkout your repository using git
         uses: actions/checkout@v4
+      - name: Set SITE and BASE_PATH for GitHub Pages
+        run: |
+          echo "SITE=\"https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}\"" > .env
+          echo "BASE_PATH=\"/${{ github.event.repository.name }}\"" >> .env
       - name: Install, build, and upload your site
         uses: withastro/action@v3
         # with:
@@ -37,3 +41,5 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+      - name: Echo SITE value
+        run: cat .env

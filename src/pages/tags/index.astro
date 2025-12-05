@@ -5,11 +5,14 @@ const allPosts = await getCollection("blog");
 const tags = [...new Set(allPosts.map((post: any) => post.data.tags).flat())];
 const pageTitle = "Tag Index";
 ---
-<BaseLayout pageTitle={pageTitle}>
+<BaseLayout pageTitle={pageTitle} basePath={import.meta.env.BASE_PATH || '/'}>
   <div class="tags">
-    {tags.map((tag) => (
-      <p class="tag"><a href={`./${tag}`}>{tag}</a></p>
-    ))}
+    {tags.map((tag) => {
+      let basePath = import.meta.env.BASE_PATH || '/';
+      if (basePath === '/' || basePath === '') basePath = '';
+      if (basePath && !basePath.startsWith('/')) basePath = '/' + basePath;
+      return <p class="tag"><a href={`${basePath}/tags/${tag}/`}>{tag}</a></p>;
+    })}
   </div>
 </BaseLayout>
 <style>
